@@ -119,9 +119,9 @@ class energy_server():
         for addr in addr_list:
             if addr == "127.0.0.1":
                 continue
-##            if(self._nettype == NETTYPE.CELL):
-##                if(addr.find("192.168.") == 0):
-##                    continue
+            if(self._nettype == NETTYPE.CELL):
+                if(addr.find("192.168.") == 0):
+                    continue
             if(addr.find('.')>0):
                 return addr
         return "127.0.0.1"
