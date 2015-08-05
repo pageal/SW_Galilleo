@@ -29,63 +29,6 @@ PAGE_CHARGERS = \
 globals()["g_count_of_chargers"] = 0
 globals()["g_count _of_power_meters"] = 0.0
 
-class temperature_resolver(object):
-    def __init__(self):
-        #initialize device
-        os.system("modprobe w1-gpio")
-        os.system("modprobe w1-therm")
-        self.dev_dir = '/sys/bus/w1/devices/'
-
-        try:
-            self.ds18b20_folder = glob.glob(self.dev_dir + '28*')[0]
-            self.ds18b20_data_file = self.ds18b20_folder + '/w1_slave'
-        except:
-            print("temperature_resolver initialization failed")
-            return
-
-    def temp_read(self):
-        try:
-            f = open(self.ds18b20_data_file, "r")
-            lines = f.readlines()
-            f.close()
-            t_pos = lines[1].find('t=')
-            if(t_pos != -1):
-                self.raw_temp_str = lines[1][t_pos+2:]
-                self.temp_c = float(self.raw_temp_str)/1000.0
-                self.temp_f = self.temp_c * 9.0/5.0 + 32.0
-        except:
-            self.temp_c = 0.0
-            self.temp_f = 0.0
-        return self.temp_c, self.temp_f
-
-class direction_resolver(object):
-    def __init__(self):
-        self.north = 1.29
-        self.ne1 = 1.34
-        self.ne2 = 0.37
-        self.east = 0.59
-        self.se1 = 0.92
-        self.se2 = 1.13
-        self.south = 1.65
-        self.sw1 = 1.57
-        self.sw2 = 1.99
-        self.west = 2.01
-        self.nw1 =  1.80
-        self.nw2 =  1.96
-
-        self._amp_to_dir_name = {self.north:"N", self.ne1:"NE", self.ne2:"NE",
-                            self.east:"E", self.se1:"SE", self.se2:"SE",
-                            self.south :"S",  self.sw1:"SW", self.sw2:"SW",
-                            self.west:"W", self.nw1:"NW", self.nw2:"NW"}
-
-    def resolve(self, sig_amp):
-        sig_amp_str = "%0.2f"%sig_amp
-        try:
-            dir_name = self._amp_to_dir_name[float(sig_amp_str)]
-            return dir_name
-        except Exception:
-            return " "
-
 class HTTPHandler(BaseHTTPServer.BaseHTTPRequestHandler):
     _preview = False
     _camera = None
