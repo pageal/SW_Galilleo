@@ -1,14 +1,2 @@
 #! /bin/sh
-rfkill unblock 0
-rfkill unblock 1
-rfkill unblock 2
-sleep 1
-kill -9 $(pidof wpa_supplicant)
-sleep1
-
-wpa_supplicant -iwlp0s20f3u1 -c/etc/wpa_supplicant.conf &
-sleep 10
-ifup wlp0s20f3u1
-
-
-
+python /etc/init.d/wifi_up.py &
