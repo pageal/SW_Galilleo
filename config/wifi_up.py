@@ -1,7 +1,8 @@
 import os
 import time
 
-time.sleep(10)
-os.system("rfkill unblock 0")
-time.sleep(10)
+time.sleep(5)
+os.system("rfkill unblock all")
+time.sleep(5)
 os.system("ifup wlp0s20f3u1")
+
