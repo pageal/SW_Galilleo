@@ -1,22 +1,8 @@
-auto lo
-
 iface lo inet loopback
-iface enp0s20f6 inet static      
-      address 192.168.1.200
-      netmask 255.255.255.0
-      network 192.168.1.1
-      gateway 192.168.1.1
-
-
-allow-hotplug wlp0s20f3u1
-iface  wlp0s20f3u1 inet manual
-wpa-roam /etc/wpa_supplicant.conf
-
-iface default inet dhcp
-
 iface wlp0s20f3u1 inet static
-      address 192.168.1.201
-      netmask 255.255.255.0
-      network 192.168.1.1
-      gateway 192.168.1.1
-
+        address 192.168.1.201
+        netmask 255.255.255.0
+        network 192.168.1.1
+        gateway 192.168.1.1
+allow-hotplug wlp0s20f3u1
+auto wlp0s20f3u1
